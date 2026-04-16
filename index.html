@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>C.A. Greenlee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Fira+Mono:wght@400&family=Atkinson+Hyperlegible:ital,wght@0,400;1,400&family=Nunito:wght@400&family=Lato:wght@400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#060605}
+body{background:#060605;color:#c8c4bc;font-family:'IM Fell English',Georgia,serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:flex-start;padding:0.9rem 3rem;pointer-events:none;background:#060605;border-bottom:1px solid #0f0e0c}
+nav .name{font-family:'Fira Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;color:#6a6660;text-transform:uppercase;pointer-events:auto}
+nav ul{list-style:none;display:flex;gap:2.5rem;pointer-events:auto}
+nav a{font-family:'Fira Mono',monospace;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a7670;text-decoration:none;transition:color 0.4s}
+nav a:hover{color:#b0aca4}
+
+/* ── HERO ── */
+#hero{height:calc(100vh + 1rem);width:100%;position:relative;overflow:hidden}
+#hero img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(5%) contrast(1.06)}
+#hero .over{position:absolute;bottom:62vh;left:3.5rem}
+#hero h1{font-size:clamp(3rem,7vw,7.5rem);font-weight:400;color:#9a9690;line-height:0.88;letter-spacing:-0.025em}
+#hero h1 em{font-style:italic;font-size:0.8em;color:#7a7670;letter-spacing:0.01em}
+#hero .loc{position:absolute;bottom:3.5rem;left:3.5rem;font-family:'Fira Mono',monospace;font-size:0.56rem;letter-spacing:0.22em;color:#5a5850;text-transform:uppercase}
+
+/* ── LAYOUT ATOMS ── */
+.full{width:100%;line-height:0;overflow:hidden}
+.full img{width:100%;display:block}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#060605;line-height:0}
+.two img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;background:#060605;line-height:0}
+.three img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+
+.big-small{display:grid;grid-template-columns:2fr 1fr;gap:3px;background:#060605;line-height:0;align-items:start}
+.big-small img{width:100%;display:block}
+.big-small img:first-child{aspect-ratio:16/10;object-fit:cover}
+.big-small img:last-child{aspect-ratio:3/4;object-fit:cover}
+
+.small-big{display:grid;grid-template-columns:1fr 2fr;gap:3px;background:#060605;line-height:0;align-items:start}
+.small-big img{width:100%;display:block}
+.small-big img:first-child{aspect-ratio:3/4;object-fit:cover}
+.small-big img:last-child{aspect-ratio:16/10;object-fit:cover}
+
+/* ── TEXT PANELS ── */
+.panel{padding:6rem 5vw}
+.panel.left{max-width:680px}
+.panel.right{margin-left:auto;text-align:right;max-width:680px}
+.panel.center{margin:0 auto;text-align:center;max-width:580px;padding:6rem 5vw}
+
+.mono{font-family:'Fira Mono',monospace;font-size:0.56rem;letter-spacing:0.22em;color:#6a6660;text-transform:uppercase;margin-bottom:2.5rem;display:block;font-weight:400}
+
+.panel p{font-size:clamp(0.98rem,1.25vw,1.12rem);line-height:1.9;color:#9a9690;margin-bottom:1.3rem}
+#about p{font-family:'Fira Mono',monospace;letter-spacing:0.03em;word-spacing:0.12em;line-height:2.1}
+.panel p.lead{color:#c8c4bc;font-size:clamp(1.05rem,1.45vw,1.22rem)}
+.panel p strong{color:#d8d4cc;font-weight:400;font-style:normal}
+
+/* ── STATEMENT BLOCK ── */
+.statement{padding:8rem 5vw;border-top:1px solid #0f0e0c;border-bottom:1px solid #0f0e0c}
+.statement blockquote{font-size:clamp(1.1rem,1.75vw,1.55rem);line-height:1.85;font-style:italic;color:#7a7670;max-width:900px}
+.statement blockquote strong{color:#c0bcb4;font-style:normal;font-weight:400}
+.statement .sid{font-family:'Fira Mono',monospace;font-size:0.54rem;letter-spacing:0.2em;color:#6a6660;text-transform:uppercase;margin-bottom:3rem;display:block}
+
+/* ── STRIP ── */
+.strip{padding:2rem 3rem;display:flex;gap:3.5rem;flex-wrap:wrap;border-bottom:1px solid #0c0b09}
+.strip span{font-family:'Fira Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;color:#7a7670;text-transform:uppercase}
+
+/* ── CAPTION HOVER ── */
+.cap-wrap{position:relative;overflow:hidden;line-height:0}
+.cap-wrap img{width:100%;display:block;transition:filter 0.5s}
+.cap-wrap:hover img{filter:brightness(0.85)}
+.cap-wrap .cap{position:absolute;bottom:0;left:0;right:0;padding:0.7rem 1rem;background:linear-gradient(transparent,rgba(4,4,3,0.8));font-family:'Fira Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;color:#8a8680;text-transform:uppercase;opacity:0;transition:opacity 0.4s}
+.cap-wrap:hover .cap{opacity:1}
+
+/* ── PRINT LABEL ── */
+.print-label{padding:0.55rem 0.9rem 0.75rem;line-height:1.5;background:#060605}
+.print-label .label-title{font-family:'Fira Mono',monospace;font-size:calc(0.54rem + 2px);letter-spacing:0.14em;color:#5a5850;text-transform:uppercase;display:block}
+.print-label .label-sub{font-family:'Fira Mono',monospace;font-size:calc(0.44rem + 2px);letter-spacing:0.12em;color:#7a7670;display:block;margin-top:0.18rem}
+.print-label-full{padding:0.55rem 3rem 0.75rem;background:#060605;line-height:1.5}
+.print-label-full .label-title{font-family:'Fira Mono',monospace;font-size:calc(0.54rem + 2px);letter-spacing:0.14em;color:#5a5850;text-transform:uppercase;display:block}
+.print-label-full .label-sub{font-family:'Fira Mono',monospace;font-size:calc(0.44rem + 2px);letter-spacing:0.12em;color:#7a7670;display:block;margin-top:0.18rem}
+
+/* ── ARCHIVAL NOTE ── */
+.archival-note{padding:5rem 5vw 4rem;max-width:600px;margin:0 auto;text-align:center}
+.archival-note p{font-size:clamp(0.95rem,1.2vw,1.05rem);line-height:1.9;color:#7a7670;font-style:italic}
+
+/* ── CONTACT ── */
+#contact{padding:8rem 5vw 6rem;border-top:1px solid #0f0e0c}
+#contact .contact-intro{font-size:clamp(0.98rem,1.25vw,1.1rem);line-height:1.9;color:#9a9690;max-width:520px;margin-bottom:3rem}
+#contact a.email{font-size:clamp(1.5rem,3vw,2.8rem);color:#6a6660;text-decoration:none;font-style:italic;display:block;margin-bottom:0.4rem;transition:color 0.5s;line-height:1.2}
+#contact a.email:hover{color:#c0bbb2}
+#contact .sub{font-family:'Fira Mono',monospace;font-size:0.56rem;letter-spacing:0.15em;color:#4a4840;text-transform:uppercase;margin-top:3.5rem;line-height:2.4}
+
+footer{padding:1.5rem 3rem;display:flex;justify-content:space-between}
+footer p{font-family:'Fira Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:#7a7670;text-transform:uppercase}
+
+/* scroll reveal */
+.appear{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s ease}
+.appear.in{opacity:1;transform:none}
+
+@media(max-width:680px){
+  nav ul{display:none}
+  .two,.three,.big-small,.small-big{grid-template-columns:1fr}
+  .two img,.three img,.big-small img,.small-big img{aspect-ratio:4/3}
+  .panel.right{margin-left:0;text-align:left}
+  #hero h1{font-size:2.8rem}
+  #hero .over{left:1.5rem;bottom:2rem}
+  .strip{gap:1.5rem}
+}
+
+/* skip link */
+.skip-link{position:absolute;top:-100%;left:1rem;z-index:200;padding:0.5rem 1rem;background:#c8c4bc;color:#060605;font-family:'Fira Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-decoration:none;border-radius:2px}
+.skip-link:focus{top:1rem}
+
+/* focus */
+a:focus-visible{outline:2px solid #b0aca4;outline-offset:3px;border-radius:2px}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav aria-label="Primary">
+  <span class="name">C.A. Greenlee</span>
+  <ul>
+    <li><a href="#work">art practice</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#emergence">disappearing acts</a></li>
+    <li><a href="#line">pleasure paths</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<main id="main-content">
+
+<section id="hero" aria-label="Hero">
+  <img src="images/cache_09.jpg" alt="Pole dancer — silver gelatin — C.A. Greenlee"/>
+  <div class="over">
+    <h1>C.A. (<em>Cache</em>)<br>Greenlee</h1>
+  </div>
+  <p class="loc">Nashville, TN &nbsp;·&nbsp; Artist Photographer</p>
+</section>
+
+
+<div id="work"></div>
+
+<!-- ── FULL: bee dancers ── -->
+<div class="full">
+  <img src="images/cache_02.jpg" alt="Bee dancers — gold and black — C.A. Greenlee"/>
+</div>
+<div class="print-label-full" style="text-align:right">
+  <span class="label-title">Queen Retinue</span>
+  <span class="label-sub">still from film</span>
+</div>
+
+<!-- ── ABOUT ── -->
+<div class="panel left appear" id="about">
+  <h2 class="mono">About</h2>
+  <p class="lead">C.A. Greenlee (Cache) is an artist whose work is preoccupied with the natural world, photographic processes, alchemy and ephemera.</p>
+  <p>Drawn to what is already at the threshold... to evidence of lives lived, to disappearing acts and desire paths.</p>
+  <p>Current and ongoing projects include contact prints from found glass slide negatives merged with cicada photograms and silver gelatin prints produced with pinhole cameras made from beelining boxes.</p>
+  <p>The work asks you to be alive to the simultaneity of when.</p>
+</div>
+
+<!-- ── TWO: cicada scattered + mandala ── -->
+<div class="two">
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_05.jpg" alt="Cicada photogram — scattered"/>
+      <div class="cap">Cicada Photogram</div>
+    </div>
+    <div class="print-label">
+      <span class="label-title">Cicada Photogram</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_06.jpg" alt="Cicada photogram — radial arrangement with wings"/>
+      <div class="cap">Cicada Photogram — Radial</div>
+    </div>
+    <div class="print-label">
+      <span class="label-title">Cicada Photogram — Radial</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── FULL: cicada wings grid ── -->
+<div class="full">
+  <img src="images/cache_15.jpg" alt="Cicada wings — grid — C.A. Greenlee"/>
+</div>
+<div class="print-label-full">
+  <span class="label-title">Cicada Wings</span>
+  <span class="label-sub">silver gelatin print</span>
+</div>
+
+<!-- ── EMERGENCE STATEMENT ── -->
+<div class="statement appear" id="emergence">
+  <span class="sid" aria-hidden="true"></span>
+  <blockquote>
+    Found at an estate sale. Sealed in a silver glass envelope. These glass slides spent decades in a box. Cicadas live underground and only emerge every 17 years. Shedding everything they dont need and finally letting themselves be known. <br><br>
+    To make a contact print from a found glass negative is to give it its own kind of emergence. New light passes through for the first time in a generation. As the image surfaces, what was buried becomes visible. The cicadas bear witness to their story.<br><br>
+    <strong>The cicadas are witness.</strong>
+  </blockquote>
+</div>
+
+<!-- ── BIG-SMALL: church double exposure + sculpture ── -->
+<div class="big-small">
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_08.jpg" alt="Church interior — darkroom double exposure with cicadas"/>
+      <div class="cap">Found Glass with Cicada Photograms</div>
+    </div>
+    <div class="print-label">
+      <span class="label-title">Found Glass with Cicada Photograms</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_01.jpg" alt="Classical sculpture — contact print from found glass slide"/>
+      <div class="cap">Found Glass with Cicada Photograms</div>
+    </div>
+    <div class="print-label">
+      <span class="label-title">Found Glass with Cicada Photograms</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── RIGHT TEXT: bio continued ── -->
+<div class="panel right appear">
+  <p>Cache first learned darkroom printing as a teenager out of a trailer in rural Alabama. Now holding a BFA and MFA, Cache teaches community darkroom education at Belmont University and maintains a private art practice.</p>
+</div>
+
+<!-- ── TWO: abstract pinholes ── -->
+<div class="two">
+  <div class="cap-wrap">
+    <img src="images/cache_11.jpg" alt="Abstract pinhole — black horizon"/>
+    <div class="cap">Beelining Box Pinhole Camera</div>
+  </div>
+  <div class="cap-wrap">
+    <img src="images/cache_12.jpg" alt="Abstract pinhole — chemical bloom"/>
+    <div class="cap">Beelining Box Pinhole Camera</div>
+  </div>
+</div>
+
+<!-- ── BEELINING TEXT ── -->
+<div class="panel left appear">
+  <h2 class="mono">Beelining Box Pinhole</h2>
+  <p>Handheld, hand-made, and light-tight object, the bee lining box is used to catch wild honey bees to find a hive. Transforming it into a pinhole camera it is taking on a second identity and beelining has become a photographic form of research.</p>
+  <p>Like most of the work here, this is an evolving project — stay tuned. Exciting developments under way.</p>
+</div>
+
+<!-- ── FULL: camera still life ── -->
+<div class="full">
+  <img src="images/cache_10.jpg" alt="Beelining box camera and film holder"/>
+</div>
+
+<!-- ── THE LINE STATEMENT ── -->
+<div class="statement appear" id="line">
+  <span class="sid">Series — Honeybee Deities</span>
+  <blockquote>
+    The honeybee communicates through elegant and intricate movement. The success of her dances are tied to her hive's survival. Detailed directions are expressed through circular moves that the others then will repeat, enabling them to use their wings to beeline toward creating the world's earliest form of sweetness.<br><br>
+    Dance has long been a practice for survival for humans too. And the vertical axis for which dancers orbit is an ancient one <br><br> <strong>a line connecting the many hands of the deities who came before.</strong>
+  </blockquote>
+</div>
+
+<!-- ── FULL: outdoor pole dancer ── -->
+<div class="full">
+  <img src="images/cache_14.jpg" alt="Pole dancer outdoors — trees — C.A. Greenlee"/>
+</div>
+
+<!-- ── TWO: contact sheet + La Cigale ── -->
+<div class="two">
+  <div class="cap-wrap">
+    <img src="images/cache_04.jpg" alt="Pole dancer contact sheet — Ilford HP5 Plus"/>
+    <div class="cap">Contact Sheet — Medium Format Ilford HP5 Plus</div>
+  </div>
+  <div class="cap-wrap">
+    <img src="images/cache_07.jpg" alt="La Cigale — vintage postcard"/>
+    <div class="cap">La Cigale — Found Postcard</div>
+  </div>
+</div>
+
+<!-- ── FULL: 1942 scrapbook ── -->
+<div class="full appear">
+  <img src="images/cache_03.jpg" alt="1942 WWII scrapbook | Huntsville, Alabama"/>
+</div>
+
+<!-- ── ARCHIVAL NOTE ── -->
+<div class="archival-note appear">
+  <p>A ribbon from a package sent from the Navy, 1942. Huntsville, Alabama.<br>An excerpt from my great grandmother's scrapbook.</p>
+</div>
+
+<!-- ── CONTACT ── -->
+<section id="contact" aria-label="Contact">
+  <div class="appear">
+    <h2 class="mono">Contact</h2>
+    <p class="contact-intro">Contact Cache for assignments, any questions, or just to send a note.</p>
+    <a class="email" href="mailto:photo@cacheville.com">photo@cacheville.com</a>
+    <p class="sub">
+      Based in Nashville, TN<br>
+       &nbsp;·&nbsp;
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 C.A. Greenlee</p>
+  <p aria-hidden="true">&nbsp;·&nbsp; &nbsp;·&nbsp; &nbsp;·&nbsp;</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.appear').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
