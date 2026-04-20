@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>C.A. Greenlee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Fira+Mono:wght@400&family=Atkinson+Hyperlegible:ital,wght@0,400;1,400&family=Nunito:wght@400&family=Lato:wght@400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#060605}
+body{background:#060605;color:#c8c4bc;font-family:'IM Fell English',Georgia,serif;overflow-x:hidden}
+p{font-family:'Fira Mono',monospace;letter-spacing:0.03em;word-spacing:0.12em;text-align:justify;text-wrap:pretty;orphans:4;widows:4;hyphens:auto}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;align-items:flex-start;padding:0.9rem 3rem;pointer-events:none;background:#060605;border-bottom:1px solid #0f0e0c}
+nav .name{font-family:'Fira Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;color:#6a6660;text-transform:uppercase;pointer-events:auto}
+nav ul{list-style:none;display:flex;gap:0;justify-content:space-evenly;width:100%;pointer-events:auto}
+nav a{font-family:'Fira Mono',monospace;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a7670;text-decoration:none;transition:color 0.4s}
+nav a:hover{color:#b0aca4}
+
+/* ── COVER ── */
+#hero{height:60vw;min-height:65vh;width:100%;position:relative;overflow:hidden}
+#hero img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(5%) contrast(1.06)}
+#hero .over{position:absolute;top:clamp(6rem,16vh,15rem);left:3.5rem}
+#hero .over-loc{position:absolute;bottom:2rem;left:3.5rem}
+#hero h1{font-size:clamp(3rem,7vw,7.5rem);font-weight:400;color:#9a9690;line-height:0.88;letter-spacing:-0.025em}
+#hero h1 em{font-style:italic;font-size:0.8em;color:#7a7670;letter-spacing:0.01em}
+#hero .loc{margin-top:1rem;padding-left:1rem;font-family:'Fira Mono',monospace;font-size:calc(0.56rem + 2px);letter-spacing:0.22em;color:#5a5850;text-transform:uppercase;display:block}
+
+
+/* ── LAYOUT ATOMS ── */
+.full{width:100%;line-height:0;overflow:hidden}
+.full img{width:100%;display:block}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#060605;line-height:0}
+.two img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;background:#060605;line-height:0}
+.three img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+
+.big-small{display:grid;grid-template-columns:1.5fr 1fr;column-gap:3px;background:#060605;line-height:0;align-items:start;margin:0 0.75rem}
+.big-small img{width:100%;display:block}
+.big-small>div:first-child img{width:100%;height:auto;object-fit:unset}
+.big-small>div:last-child img{aspect-ratio:16/10;object-fit:cover}
+
+.small-big{display:grid;grid-template-columns:1fr 2fr;gap:3px;background:#060605;line-height:0;align-items:start}
+.small-big img{width:100%;display:block}
+.small-big img:first-child{aspect-ratio:3/4;object-fit:cover}
+.small-big img:last-child{aspect-ratio:16/10;object-fit:cover}
+
+/* ── TEXT PANELS ── */
+.panel{padding:6rem 5vw}
+.panel.left{max-width:680px}
+.panel.right{margin-left:auto;text-align:right;max-width:680px}
+.panel.center{margin:0 auto;text-align:center;max-width:580px;padding:6rem 5vw}
+
+.mono{font-family:'Fira Mono',monospace;font-size:clamp(calc(2.2rem - 17px),4vw,calc(4.5rem - 17px));letter-spacing:0.08em;color:#c8c4bc;text-transform:uppercase;margin-bottom:2.5rem;display:block;font-weight:400}
+
+.panel p{font-size:clamp(0.98rem,1.25vw,1.12rem);line-height:1.9;color:#9a9690;margin-bottom:1.3rem}
+#about p{font-family:'Fira Mono',monospace;letter-spacing:0.03em;word-spacing:0.12em;line-height:2.1}
+.panel p.lead{color:#c8c4bc;font-size:clamp(1.05rem,1.45vw,1.22rem)}
+.panel p strong{color:#d8d4cc;font-weight:400;font-style:normal}
+
+/* ── STATEMENT BLOCK ── */
+.statement{padding:8rem 5vw;border-top:1px solid #0f0e0c;border-bottom:1px solid #0f0e0c}
+.statement blockquote{font-family:'Fira Mono',monospace;font-size:clamp(1.1rem,1.75vw,1.55rem);line-height:1.85;color:#7a7670;max-width:900px;letter-spacing:0.03em;word-spacing:0.12em;text-align:justify;text-wrap:pretty;orphans:4;widows:4;hyphens:auto}
+.statement blockquote strong{color:#c0bcb4;font-style:normal;font-weight:400}
+.statement .sid{font-family:'Fira Mono',monospace;font-size:0.54rem;letter-spacing:0.2em;color:#6a6660;text-transform:uppercase;margin-bottom:3rem;display:block}
+
+/* ── STRIP ── */
+.strip{padding:2rem 3rem;display:flex;gap:3.5rem;flex-wrap:wrap;border-bottom:1px solid #0c0b09}
+.strip span{font-family:'Fira Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;color:#7a7670;text-transform:uppercase}
+
+/* ── CAPTION HOVER ── */
+.cap-wrap{position:relative;overflow:hidden;line-height:0}
+.cap-wrap img{width:100%;display:block}
+
+.bee-flex{display:grid;grid-template-columns:1.56fr 0.56fr 1fr;gap:3rem;align-items:start}
+.bee-text{min-width:0}
+.bee-title{grid-column:1/-1;margin-bottom:1.5rem}
+@media(min-width:681px){
+  /* ── consistent label alignment ── */
+  .print-label{padding:0.3rem 0 0.6rem}
+  .two .print-label{margin-top:0.5rem;margin-bottom:2rem}
+  .print-label-full{padding:0.3rem 1rem 0.6rem}
+  .big-small>div:first-child{padding-left:1rem}
+  .big-small>div:last-child .print-label{padding-left:0}
+
+  .studies-wrap{display:flex;align-items:stretch;gap:0;margin:0 5rem}
+  .studies-grid{margin:0!important;flex:0 0 50%;grid-template-columns:1fr!important}
+  .field-study-1{display:none}
+  .studies-text{padding-left:4rem;padding-top:0!important;padding-bottom:0!important;flex:1;display:flex;flex-direction:column;justify-content:center;max-width:none}
+  #camera-full{margin-top:3rem!important;width:60%;margin-left:auto;margin-right:auto}
+  .bee-para{font-size:clamp(0.98rem,1.25vw,1.12rem)!important}
+  .bee-flex{grid-template-columns:1.2fr 0.4fr 1.6fr}
+  .bee-drawing-desktop{margin-top:-3rem}
+  .studies-wrap{margin-top:-2rem}
+  .bee-title{font-size:clamp(calc(1.1rem - 8px),2vw,calc(2.25rem - 8px))!important}
+
+  /* ── about + apparition full screen ── */
+  #about{min-height:100vh;display:flex;align-items:center;justify-content:center}
+  #apparition.statement{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0!important;border-top:none!important;border-bottom:none!important}
+  .apparition-inner{width:62vw;aspect-ratio:10/8;display:flex;flex-direction:column;justify-content:center;padding:4rem 6rem}
+  #apparition blockquote{font-size:clamp(0.98rem,1.25vw,1.12rem)!important;line-height:2.1!important;color:#9a9690!important;max-width:none!important}
+  #apparition h2.mono{font-size:clamp(calc(1.1rem - 8px),2vw,calc(2.25rem - 8px))}
+  #bambi-statement.statement{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0!important;border-top:none!important;border-bottom:none!important}
+  .bambi-inner{width:62vw;aspect-ratio:10/8;display:flex;flex-direction:column;justify-content:center;padding:4rem 6rem}
+  #bambi-statement blockquote{font-size:clamp(0.98rem,1.25vw,1.12rem)!important;line-height:2.1!important;color:#9a9690!important;max-width:none!important}
+  #bambi-statement h2.mono{font-size:clamp(calc(1.1rem - 8px),2vw,calc(2.25rem - 8px))}
+  #line.statement{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0!important;border-top:none!important;border-bottom:none!important}
+  .deities-inner{width:62vw;aspect-ratio:10/8;display:flex;flex-direction:column;justify-content:center;padding:4rem 6rem}
+  #line blockquote{font-size:clamp(0.98rem,1.25vw,1.12rem)!important;line-height:2.1!important;color:#9a9690!important;max-width:none!important}
+  #line h2.mono{font-size:clamp(calc(1.1rem - 8px),2vw,calc(2.25rem - 8px))}
+  .about-inner{width:62vw;aspect-ratio:10/8;display:flex;flex-direction:column;justify-content:center;padding:4rem 6rem}
+  .about-inner .panel{padding:0!important}
+  #about h2.mono{font-size:clamp(calc(1.1rem - 8px),2vw,calc(2.25rem - 8px))}
+
+  /* ── contact desktop sizing ── */
+  .contact-right{text-align:right;margin-top:-0.5rem}
+  .contact-heading{text-align:right}
+  .contact-name-desktop{font-size:calc((clamp(calc(2.2rem - 17px),4vw,calc(4.5rem - 17px))) * 0.6)!important}
+  #contact{padding-right:clamp(2rem,5vw,9rem)!important}
+  #contact h2.mono{font-size:calc(clamp(calc(2.2rem - 17px),4vw,calc(4.5rem - 17px)) * 1.1);letter-spacing:0.18em}
+  .contact-name-desktop{letter-spacing:0.16em!important}
+  .contact-label{font-size:clamp(1rem,1.8vw,2.2rem)!important}
+  .contact-label-sm{font-size:clamp(0.7rem,1.26vw,1.54rem)!important}
+  #contact a.email{font-size:clamp(1.1rem,2vw,2.5rem)!important;margin-top:-1rem}
+  .book-link{font-size:clamp(1rem,1.8vw,2.2rem)!important;margin-top:-1rem}
+  .contact-bio{font-size:clamp(0.75rem,1.35vw,1.7rem)!important}
+  #beelining-text{padding:5rem 0 3rem 20vw!important}
+  .beelining-text-inner{max-width:60vw}
+  nav a{font-size:0.7rem;color:#a8a49c}
+}
+.bee-camera-text{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);width:40%;aspect-ratio:3/2;background:rgba(10,10,8,0.55);display:flex;align-items:center;justify-content:center;padding:2rem;text-align:center;font-family:'Fira Mono',monospace;font-size:clamp(0.6rem,0.8vw,1rem);line-height:1.9;color:#9a9690;letter-spacing:0.03em;box-sizing:border-box}
+.bee-drawing{margin-top:5rem;text-align:right;display:flex;flex-direction:column;align-items:flex-end;padding-right:8rem}
+.bee-drawing img{width:70%;height:auto}
+.bee-drawing-mobile{display:none}
+.deities-fairy-wrap{display:flex;flex-direction:column}
+/* ── PRINT LABEL ── */
+.print-label{padding:0.2rem 0.9rem 0.75rem;line-height:1.5;background:#060605}
+.two .print-label{margin-top:1rem;margin-bottom:3rem}
+.big-small .print-label{margin-top:1rem;padding:0.2rem 0 0.75rem}
+.big-small>div:first-child{padding-left:2rem}
+.big-small>div:first-child .print-label{padding-left:0}
+.big-small>div:last-child .print-label{padding-left:4rem}
+
+.label-title{font-family:'Fira Mono',monospace;font-size:calc(0.54rem + 2px);letter-spacing:0.14em;color:#5a5850;text-transform:uppercase;display:block}
+.label-sub{font-family:'Fira Mono',monospace;font-size:calc(0.44rem + 2px);letter-spacing:0.12em;color:#7a7670;display:block;margin-top:0.18rem}
+.print-label-full{padding:0.2rem 3rem 0.75rem;background:#060605;line-height:1.5}
+
+/* ── ARCHIVAL NOTE ── */
+.archival-note{padding:5rem 5vw 4rem;max-width:600px;margin:0 auto;text-align:center}
+.archival-note p{font-size:clamp(0.95rem,1.2vw,1.05rem);line-height:1.9;color:#7a7670;font-style:italic}
+
+/* ── CONTACT ── */
+#contact{padding:0 0 clamp(6rem,10vw,16rem)}
+.contact-grid{display:flex;align-items:stretch;gap:clamp(2rem,4vw,6rem)}
+.contact-photo{flex:0 0 50%;padding-left:clamp(2rem,5vw,9rem);line-height:0}
+.contact-heading{margin-bottom:clamp(1rem,2vw,3rem)}
+.contact-name-mobile{display:none}
+.contact-name-desktop{display:block}
+@media(max-width:680px){
+  .contact-heading{display:flex;align-items:baseline;gap:0.6em}
+  .contact-name-desktop{display:none!important}
+  .contact-name-mobile{display:block!important;margin-bottom:0!important}
+  .contact-heading h2{margin-bottom:0!important}
+}
+.contact-bio{font-family:'Fira Mono',monospace;font-size:clamp(0.6rem,1.1vw,1.4rem);line-height:1.8;color:#7a7670;letter-spacing:0.03em;margin-top:clamp(0.75rem,1.5vw,2rem)}
+.contact-photo img{width:100%;display:block;border-radius:8px}
+.contact-right{flex:0 0 50%;padding:0 clamp(2rem,5vw,9rem) clamp(1rem,2vw,3rem) 0;display:flex;flex-direction:column;justify-content:space-between}
+#contact .contact-intro{font-size:clamp(0.98rem,1.6vw,1.5rem);line-height:1.9;color:#9a9690;margin-bottom:clamp(1.5rem,3vw,4rem)}
+#contact a.email{font-family:'Fira Mono',monospace;font-size:clamp(0.65rem,1.2vw,1.5rem);letter-spacing:0.14em;color:#a04868;text-decoration:none;text-transform:uppercase;display:block;margin-bottom:clamp(1rem,2vw,2.5rem);transition:color 0.4s}
+#contact a.email:hover{color:#b0aca4}
+.contact-label{font-family:'Fira Mono',monospace;font-size:clamp(0.6rem,1.1vw,1.4rem);letter-spacing:0.2em;color:#7a7670;text-transform:uppercase;display:block;margin-bottom:clamp(0.4rem,0.8vw,1rem)}
+.dispatch-heading{font-size:1.5rem!important}
+
+.contact-divider{border:none;border-top:1px solid #0f0e0c;margin:clamp(0.5rem,1vw,1.5rem) 0}
+.newsletter-form{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem}
+.newsletter-form input[type="email"]{background:#0c0b09;border:1px solid #1a1916;color:#9a9690;font-family:'Fira Mono',monospace;font-size:calc(0.5rem + 4px);letter-spacing:0.1em;padding:0.6rem 0.8rem;outline:none;transition:border-color 0.3s}
+.newsletter-form input[type="email"]::placeholder{color:#4a4840}
+.newsletter-form input[type="email"]:focus{border-color:#3a3830}
+.newsletter-form button{background:transparent;border:1px solid #2a2820;color:#6a6660;font-family:'Fira Mono',monospace;font-size:calc(0.48rem + 4px);letter-spacing:0.16em;text-transform:uppercase;padding:0.55rem 1rem;cursor:pointer;transition:color 0.3s,border-color 0.3s;align-self:flex-start}
+.newsletter-form button:hover{color:#b0aca4;border-color:#5a5850}
+.book-link{font-family:'Fira Mono',monospace;font-size:clamp(0.65rem,1.2vw,1.5rem);letter-spacing:0.14em;color:#a03848;text-decoration:none;text-transform:uppercase;display:block;transition:color 0.4s}
+.book-link:hover{color:#b0aca4}
+@media(max-width:768px){.contact-grid{flex-direction:column}.contact-photo{flex:none;width:100%;padding-left:2rem;padding-right:2rem}.contact-right{padding:2rem}}
+
+footer{padding:1.5rem 3rem;display:flex;justify-content:space-between}
+footer p{font-family:'Fira Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:#7a7670;text-transform:uppercase}
+@media(min-width:681px){footer p{font-size:0.72rem}}
+@media(max-width:680px){.footer-nashville{display:none}.footer-by-cache{display:none}.footer-handcoded{color:#8a3858!important;order:-1}.footer-mobile-text{display:inline!important}.hide-mobile{display:none!important}footer{flex-direction:column;gap:0.25rem;padding-top:1rem;align-items:flex-start;padding-left:2rem}}
+
+.footer-mobile-text{display:none}
+.mobile-colon{display:none}
+.mobile-only-block{display:none}
+/* scroll reveal */
+.appear{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s ease}
+.appear.in{opacity:1;transform:none}
+
+@media(max-width:680px){
+  .hide-mobile{display:none!important}
+  nav{padding:0.9rem 1rem}
+  nav ul{flex-wrap:nowrap;justify-content:space-between;width:100%}
+  .bee-flex{grid-template-columns:1fr;padding:3rem 5vw 4rem!important;gap:1rem}
+  .bee-flex>div:empty{display:none}
+  .bee-drawing-desktop{display:none}
+  .bee-camera-text{display:none}
+  .bee-drawing-mobile{display:flex !important;flex-direction:column;align-items:flex-end;float:none;width:fit-content;margin-left:auto;padding-right:0 !important}
+  .bee-contact-mobile{float:right;margin-left:auto;margin-top:3rem;margin-bottom:-3rem;transform:translateX(1rem)}
+  #beelining-text{padding:2rem 5vw 0!important}
+  #contact .contact-label{font-size:1.1rem!important}
+  #contact .contact-label-sm{font-size:0.9rem!important}
+  #contact a.email{font-size:1.2rem!important}
+  .book-link{font-size:1.2rem!important}
+  .contact-bio{font-size:0.8rem!important;margin-top:1rem!important;margin-bottom:3rem}
+  #contact .contact-photo img{margin-bottom:1rem}
+  #contact>div:first-child{padding-top:7rem!important;padding-bottom:4rem!important}
+  .contact-heading{padding-left:0.2rem;padding-bottom:0.75rem;margin-bottom:0}
+  .contact-heading h2.mono{font-size:1.1rem!important}
+  .contact-name-mobile{font-size:1.4rem!important;letter-spacing:0.04em!important}
+  .mobile-colon{display:inline!important}
+  .mobile-only-block{display:block!important}
+  #camera-full .print-label{margin-bottom:1rem}
+  nav a{font-size:0.44rem}
+  #dossier{margin-top:-2rem!important}
+  #dossier .print-label-full{margin-bottom:2rem!important}
+  #line.statement{order:2}
+  #deities{order:1}
+  .two,.three,.big-small,.small-big{grid-template-columns:1fr}
+  .two>div:first-child{order:2}
+  .two>div:last-child{order:1}
+  .big-small>div:first-child{order:2}
+  .big-small>div:last-child{order:1}
+  .two img,.three img,.big-small img,.small-big img{aspect-ratio:4/3}
+  .two[style]{margin:0 !important;column-gap:0 !important}
+  .panel.right{margin-left:0;text-align:left}
+  .strip{gap:1.5rem}
+
+  /* hero: name stays on image, repositioned to white negative space below leg */
+  #hero{height:110vw;min-height:unset;margin-top:0.5rem}
+  #about{margin-top:4rem!important}
+  #about + .panel{padding-bottom:6rem}
+  .two:first-of-type{margin-top:-2rem;gap:4rem}
+  .full:has(img[alt*="Cicada Wings"]){margin-top:1rem}
+  .img-full-mobile{aspect-ratio:unset!important;height:auto!important;object-fit:contain!important}
+  /* ── consistent mobile labels ── */
+  .print-label{padding:0.2rem 0.5rem 0.4rem}
+  .print-label-full{padding:0.2rem 1rem 0.4rem}
+  .two .print-label{margin-top:1rem;margin-bottom:1rem;text-align:right}
+  .two>div:first-child .print-label{margin-bottom:-1rem}
+  .two>div:last-child .print-label{text-align:left}
+  #line.statement{padding-top:2rem!important}
+  #bambi-statement{padding-top:3rem}
+  .dossier-spacer{height:4rem!important}
+  .big-small>div:first-child{padding-left:0.5rem}
+  .big-small>div:first-child img{aspect-ratio:unset;height:auto}
+  .big-small>div:first-child .print-label{margin-bottom:2rem}
+  .big-small>div:last-child .print-label{margin-bottom:2.5rem}
+  .big-small>div:last-child{margin-top:1rem}
+  #retinue-two>div:last-child{margin-top:-5rem;margin-bottom:1rem}
+  #retinue-two>div:last-child .print-label{margin-top:1.3rem;margin-bottom:1rem}
+  .big-small>div:last-child .print-label{padding-left:2.75rem}
+  #hero img{object-position:calc(50% + 0.5rem) top}
+  #hero .over{top:auto;bottom:calc(22% + 2.5rem);left:1rem}
+  #hero h1{font-size:calc((clamp(2.8rem,8vw,4rem) + 10px) * 0.9);letter-spacing:2px}
+  #hero .over-loc{bottom:1.5rem;left:1.5rem}
+  #hero .loc{padding-left:0;margin-top:0;margin-left:0}
+  .loc-dot{display:none}
+  .loc-role{display:block;margin-top:0.3rem}
+}
+
+/* skip link */
+.skip-link{position:absolute;top:-100%;left:1rem;z-index:200;padding:0.5rem 1rem;background:#c8c4bc;color:#060605;font-family:'Fira Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-decoration:none;border-radius:2px}
+.skip-link:focus{top:1rem}
+
+/* focus */
+a:focus-visible{outline:2px solid #b0aca4;outline-offset:3px;border-radius:2px}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav aria-label="Primary">
+  <ul>
+    <li><a href="#hero">cacheville</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#apparition">apparition</a></li>
+    <li><a href="#line">deities</a></li>
+    <li><a href="#beelining">beelining<span class="hide-mobile"> camera</span></a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── cover ── -->
+<main id="main-content">
+
+<section id="hero" aria-label="Hero">
+  <img src="images/cache_09.jpg" alt="Scorpion — 120 film"/>
+  <div class="over">
+    <h1>C.A. (<em>Cache</em>)<br>Greenlee</h1>
+  </div>
+  <div class="over-loc">
+    <p class="loc">Nashville, TN <span class="loc-dot">&nbsp;·&nbsp;</span><span class="loc-role">Artist Photographer</span></p>
+  </div>
+</section>
+
+<div class="print-label-full" style="margin-top:1rem;text-align:right">
+  <span class="label-title">SCORPIO</span>
+  <span class="label-sub">120 film</span>
+</div>
+
+<div id="work"></div>
+
+
+<!-- ── ABOUT ── -->
+<div id="about" style="background:#060605">
+  <div class="about-inner">
+    <div class="panel left appear" style="max-width:100%;padding-top:1rem">
+      <h2 class="mono" style="margin-bottom:1.5rem;margin-left:-0.05em">About</h2>
+      <p>C.A. Greenlee (Cache) finds inspiration in nature, ephemera, and alchemy. This practice is drawn to what is at the threshold. To the evidence of lives lived and techniques disappearing from use. To the understanding that engaging with delicate materials, no matter how intentional, risks destruction. But to leave them alone entirely is to lose them faster. The work asks you to be alive to the simultaneity of when.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── cicada scattered + spiral ── -->
+<div class="two">
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_06.jpg" alt="Cicada Photogram — silver gelatin print" style="object-position:center 42%" class="img-full-mobile"/>
+
+    </div>
+    <div class="print-label">
+      <span class="label-title">RADIAL CICADAGRAM</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_05.jpg" alt="Cicada Photogram — silver gelatin print" style="object-position:center 42%"/>
+
+    </div>
+    <div class="print-label">
+      <span class="label-title">ENTROPIC CICADAS</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── cicada wings ── -->
+<div class="full hide-mobile">
+  <img src="images/cache_15.jpg" alt="Cicada Wings — silver gelatin print"/>
+</div>
+<div class="print-label-full hide-mobile" style="margin-top:1rem">
+  <span class="label-title">3 CICADA COLUMNS</span>
+  <span class="label-sub">silver gelatin print</span>
+</div>
+
+<!-- ── apparition text ── -->
+<div class="statement appear" id="apparition">
+  <div class="apparition-inner">
+    <h2 class="mono" style="margin-bottom:1.5rem;margin-left:-0.05em">XVII: Apparition</h2>
+    <blockquote>
+      Proofing glass slides and printing photograms create a 1:1 record of the biological and the archival. While glass plates invert history, the cicadas cast an ethereal and unrepeatable silhouette. Both methods require direct contact with a light-sensitive surface as they reveal what had been buried before.
+    </blockquote>
+  </div>
+</div>
+
+<!-- ── big and small slides ── -->
+<div class="big-small">
+  <div class="hide-mobile">
+    <div class="cap-wrap">
+      <img src="images/cache_08.jpg" alt="PROVISIONAL — update 5/8"/>
+
+    </div>
+    <div class="print-label">
+      <span class="label-title">PROVISIONAL IMAGE</span>
+      <span class="label-sub">come back on May 8th</span>
+    </div>
+  </div>
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_01.jpg" alt="Found Glass Slide — silver gelatin print"/>
+
+    </div>
+    <div class="print-label">
+      <span class="label-title">Venus and Cupid</span>
+      <span class="label-sub">silver gelatin print</span>
+    </div>
+  </div>
+</div>
+
+<div class="dossier-spacer" style="height:6rem"></div>
+
+
+
+<!-- ── Angels of the Hive ── -->
+<div class="deities-fairy-wrap">
+  <div class="statement appear" id="line">
+    <div class="deities-inner">
+      <h2 class="mono" style="margin-bottom:1.5rem;margin-left:-0.05em">Deities</h2>
+      <blockquote>
+        The hive's survival is tied to the success of the honey bee's ability to communicate through dance. Detailed directions are encoded in circular patterns, allowing them to beeline towards the catalyst for the world's earliest form of sweetness. And while perception may alternate between the taboo and the sacred, both bee and dancer maintain the divine ability to transform labor into honey and movement into spells.
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- ── Tinkerbell ── -->
+  <div class="full" id="deities">
+    <div class="cap-wrap">
+      <img src="images/cache_14.jpg" alt="Pole dancer outdoors — trees — C.A. Greenlee"/>
+    </div>
+    <div class="print-label-full" style="margin-top:1rem;text-align:right">
+      <span class="label-title">FAIRY</span>
+      <span class="label-sub">digital</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Queen Retinue + La Cigale ── -->
+<div class="two" id="retinue-two">
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_07.jpg" alt="La Cigale and postcard"/>
+    </div>
+    <div class="print-label" style="text-align:right">
+      <span class="label-title">LA CIGALE</span>
+      <span class="label-sub">found postcard</span>
+    </div>
+  </div>
+  <div>
+    <div class="cap-wrap">
+      <img src="images/cache_02.jpg" alt="Queen Retinue — film still"/>
+    </div>
+    <div class="print-label" style="text-align:right">
+      <span class="label-title">QUEEN RETINUE</span>
+      <span class="label-sub">film still</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── BEELINING TEXT + design ── -->
+<div class="bee-flex" id="beelining" style="padding:10rem 5vw 6rem 5vw">
+  <h2 class="mono bee-title" style="margin-left:-0.05em">Beelining Camera</h2>
+  <div class="bee-text">
+    <p style="font-size:clamp(0.98rem,1.25vw,1.12rem);line-height:1.9;color:#9a9690;margin-bottom:1.3rem" class="bee-para">The bee box is divided into two compartments, with windows that open and close. When I realized the box had to be light-proof, the parallel with pinhole cameras became clear: handheld, hand-made, light-tight tools that operate by harnessing light. This realization prompted a functional shift: the tool for beelining became a vessel for photographic research.</p>
+  </div>
+  <div></div>
+  <div class="bee-drawing bee-drawing-desktop">
+    <img src="images/cache_16.jpg" alt="BEE BOX DESIGN pen on paper" style="display:block;width:100%;height:auto"/>
+    <div class="print-label" style="margin-top:1rem;padding-left:0;text-align:right">
+      <span class="label-title">BEE BOX DESIGN</span>
+      <span class="label-sub">pen on paper</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── pinhole diptych ── -->
+<div class="studies-wrap">
+  <div class="two studies-grid" style="margin:0 5rem;column-gap:3rem;clear:both">
+    <div class="field-study-1 hide-mobile">
+      <div class="cap-wrap">
+        <img src="images/cache_11.jpg" alt="Field Study No. 1 — silver gelatin print"/>
+      </div>
+      <div class="print-label" style="text-align:right">
+        <span class="label-title">Field Study No. 1</span>
+        <span class="label-sub">silver gelatin print</span>
+      </div>
+    </div>
+    <div class="field-study-2">
+      <div class="cap-wrap">
+        <img src="images/cache_12.jpg" alt="Field Study No. 2 — silver gelatin print"/>
+      </div>
+      <div class="print-label" style="text-align:right">
+        <span class="label-title">Field Study No. 2</span>
+        <span class="label-sub">silver gelatin print</span>
+      </div>
+    </div>
+  </div>
+  <div class="studies-text panel left appear" style="padding-top:1rem;padding-bottom:2rem">
+    <p style="font-size:clamp(calc(0.98rem + 2px),1.25vw,calc(1.12rem + 2px));line-height:1.9;color:#9a9690">The back wall is replaced with a film plate; a tiny hole drilled into the front becomes the aperture. While the honeybee gathers, I uncover the opening to the landscape she was found in, which then projects onto light sensitive material alongside her ghostly silhouette.</p>
+  </div>
+</div>
+
+<!-- ── Bee Lining Camera ── -->
+<div class="full" style="margin-top:0" id="camera-full">
+  <div class="cap-wrap">
+    <img src="images/cache_10.jpg" alt="BEELINING PINHOLE CAMERA first-generation 2 1/4 x 3 1/4"/>
+  </div>
+  <div class="print-label" style="text-align:right;margin-top:1rem">
+    <span class="label-title">BEELINING PINHOLE CAMERA</span>
+    <span class="label-sub">first-generation 2 1/4 x 3 1/4</span>
+  </div>
+</div>
+
+<!-- ── BEELINING TEXT ── -->
+<div id="beelining-text">
+  <div class="beelining-text-inner">
+    <p style="font-size:clamp(0.98rem,1.25vw,1.12rem);line-height:1.9;color:#9a9690;margin:0">This iteration of the beelining pinhole camera marks the beginning of a broader exploration. New strategies and a second-generation camera with an expanded film format are currently in development.</p>
+  </div>
+</div>
+
+</main>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+
+  <!-- newsletter centered above photo -->
+  <div style="padding:9rem 5vw 8rem;display:flex;flex-direction:column;align-items:center;gap:0.75rem">
+    <span class="contact-label dispatch-heading" style="color:#5a5850">occasional dispatches</span>
+    <form class="newsletter-form" onsubmit="return false" style="display:flex;flex-direction:row;gap:0.5rem">
+      <input type="email" placeholder="your email address" style="width:min(22rem,65vw)"/>
+      <button type="submit">subscribe</button>
+    </form>
+  </div>
+
+  <!-- photo + contact side by side -->
+  <div class="contact-grid appear">
+
+    <div class="contact-photo">
+      <img src="images/cache_17.jpg" alt="cache and camera"/>
+      <p class="contact-bio">Early darkroom exploration began as a teenager out of a trailer in rural Alabama. Now holding an MFA and BFA, Cache maintains a private art practice, teaches community darkroom classes at Watkins College of Art at Belmont University and has been a dance instructor since 2018. As a lifelong learner, development has recently expanded beyond the darkroom; this website was hand-coded from a blank terminal.</p>
+    </div>
+
+    <div class="contact-right">
+
+      <div class="contact-heading">
+        <h2 class="mono" style="margin-bottom:0;color:#9a9690;margin-left:-0.2em">Contact<span class="mobile-colon">:</span></h2>
+        <span class="contact-name-desktop mono" style="color:#e8e4de;margin-bottom:2rem;margin-left:-0.12em;display:block;font-size:calc((clamp(calc(2.2rem - 17px),4vw,calc(4.5rem - 17px))) * 0.525)"><span style="letter-spacing:0.04em">C.A. </span>Greenlee</span>
+        <span class="contact-name-mobile mono" style="color:#9a9690;margin-bottom:2rem">C.A. Greenlee</span>
+      </div>
+      <hr class="contact-divider mobile-only-block" style="margin-top:0.5rem"/>
+
+      <span class="contact-label contact-label-sm">For assignments, questions or<br>just to send a friendly note:</span>
+      <a class="email" href="mailto:photo@cacheville.com">photo@cacheville.com</a>
+
+      <hr class="contact-divider"/>
+
+      <span class="contact-label">book a photoshoot:</span>
+      <a class="book-link" href="https://photo.cacheville.com" target="_blank" rel="noopener">photo.cacheville.com →</a>
+
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ── scrapbook ── -->
+<div class="full appear" id="dossier">
+  <div class="cap-wrap">
+    <img src="images/cache_03.jpg" alt="1942 WWII scrapbook | Huntsville, Alabama"/>
+  </div>
+  <div class="print-label-full" style="margin-top:1rem;margin-bottom:3rem;text-align:right">
+    <span class="label-title">RIBBON FROM THE NAVY</span>
+    <span class="label-sub"><span class="hide-mobile">archival </span>digital pigment print</span>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 C.A. Greenlee</p>
+  <p class="footer-nashville">Nashville, TN</p>
+  <p class="footer-handcoded"><span class="hide-mobile">typed with ♡ by Cache</span><span class="footer-mobile-text">typed with ♡ in TN</span></p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.appear').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
